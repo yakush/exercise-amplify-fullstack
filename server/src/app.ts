@@ -8,14 +8,23 @@ import scheduler from "./scheduler/scheduler";
 start();
 
 async function start() {
-  console.log("starting...");
+  console.log("starting backend");
 
+  //Database Manager
+  console.log("connecting to DB...");
   await db.start();
-  console.log("connected to DB");
+  console.log("ok");
 
+  //Scheduler Manager
+  console.log("starting scheduler...");
   await scheduler.start();
-  console.log("scheduler started");
+  console.log("ok");
 
+  //WebServer Manager
+  console.log("starting web server...");
   await server.start();
-  console.log("server connected on port", server.PORT);
+  console.log("ok");
+  console.log("web server connected on port", server.PORT);
+
+  console.log("\nbackend running");
 }

@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { IAppService } from "../types/appService";
 import { AssetModel, IAsset } from "./models/asset";
 import { IScan, ScanModel, SCAN_STATUS } from "./models/scan";
 
@@ -23,7 +24,7 @@ function isValidId(id: any) {
   }
 }
 
-export class Database {
+export class Database implements IAppService{
   //-------------------------------------------------------
   // DB
 

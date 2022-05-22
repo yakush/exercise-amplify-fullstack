@@ -22,6 +22,8 @@ import { LayoutComponent } from './layout/layout.component';
 import { SidenavListComponent } from './nav/sidenav-list/sidenav-list.component';
 import { HeaderComponent } from './nav/header/header.component';
 import { AssetCardComponent } from './components/asset-card/asset-card.component';
+import { DateComponent } from './components/date/date.component';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 @NgModule({
   declarations: [
@@ -39,11 +41,13 @@ import { AssetCardComponent } from './components/asset-card/asset-card.component
     LayoutComponent,
     SidenavListComponent,
     HeaderComponent,
-    AssetCardComponent
+    AssetCardComponent,
+    DateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FlexLayoutModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,

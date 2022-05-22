@@ -64,7 +64,7 @@ export class AssetDetailsComponent implements OnInit, OnDestroy {
         return this.api.getScansForAsset(id);
       })
     );
-    this.hasScans$ = this.scans$.pipe(map((x) => (x && x.length > 0)));
+    this.hasScans$ = this.scans$.pipe(map((x) => x && x.length > 0));
   }
 
   openDialogScanAsset() {
@@ -84,5 +84,9 @@ export class AssetDetailsComponent implements OnInit, OnDestroy {
 
   handleAddScanClick() {
     this.openDialogScanAsset();
+  }
+
+  handleRefreshClick() {
+    this.getScans();
   }
 }

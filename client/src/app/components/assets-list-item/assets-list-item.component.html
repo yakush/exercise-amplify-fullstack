@@ -3,5 +3,5 @@
   <div>name : {{ asset.name }}</div>
   <div>ip : {{ asset.ip }}</div>
   <div>description : {{ asset.description }}</div>
-  <div>created at : {{ asset.date_created }}</div>
+  <div>created at : <app-date [date]="asset.date_created"></app-date></div>
 </mat-card>

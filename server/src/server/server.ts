@@ -1,13 +1,16 @@
 import express from "express";
 import bodyParser from "body-parser";
-const cors = require("cors");
+import cors from "cors";
+import { Server as HttpServer } from "http";
 
 import apiRouter from "./apiRouter";
 import schedulerAdminRouter from "./schedulerAdminRouter";
+import { IAppService } from "../types/appService";
 
-export class Server {
+export class Server implements IAppService {
   public app: express.Express;
-  public PORT = 5000;
+  public PORT = +(process.env.PORT || 5000);
+  public httpServer?: HttpServer;
 
   constructor() {
     this.app = express();
@@ -27,7 +30,18 @@ export class Server {
       res.send("hello ");
     });
 
-    return this.app.listen(this.PORT);
+    return new Promise<void>((resolve, reject) => {
+      this.httpServer = this.app.listen(this.PORT, () => {
+        resolve();
+      });
+    });
+  }
+
+  async stop() {
+    if (this.httpServer) {
+      this.httpServer.close();
+      this.httpServer = undefined;
+    }
   }
 }
 

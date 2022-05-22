@@ -12,7 +12,8 @@ services:
       - 27017:27017
     # TODO: crashes with volumes... why?
     volumes:
-      - ./data/mongo:/data/db
+      - ./docker-containers-data/mongo/db:/data/db
+      - ./docker-containers-data/mongo/configdb:/data/configdb
     restart: unless-stopped
 
   # REDIS DATABASE
@@ -24,7 +25,7 @@ services:
     ports:
       - 6379:6379
     volumes:
-      - ./data/redis:/data
+      - ./docker-containers-data/redis:/data
 
   # REDIS VIEWER (on localhost:8081)
   redis-commander:

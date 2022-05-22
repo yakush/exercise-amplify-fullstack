@@ -3,11 +3,12 @@ import db from "../data/database";
 import { IAsset } from "../data/models/asset";
 import { SCAN_STATUS } from "../data/models/scan";
 import scheduler from "../scheduler/scheduler";
+import ApiResponse from "./apiResponse";
 
 const apiRouter = Router();
 
 apiRouter.all("/", async (req, res) => {
-  res.send({ status: "success", data: "hello API" });
+  res.send(ApiResponse.OK("hello api"));
 });
 
 // assets
@@ -15,11 +16,10 @@ apiRouter.all("/", async (req, res) => {
 apiRouter.get("/assets", async (req, res) => {
   try {
     const assets = await db.getAssets();
-
-    res.send({ status: "success", data: assets });
+    res.send(ApiResponse.OK(assets));
   } catch (err) {
     console.log(err);
-    res.send({ status: "error", error: "error getting assets" });
+    res.send(ApiResponse.ERROR("error getting assets"));
   }
 });
 
@@ -27,13 +27,13 @@ apiRouter.get("/assets/:id", async (req, res) => {
   try {
     const asset = await db.getAsset(req.params.id);
     if (!asset) {
-      res.send({ status: "error", error: "not found" });
+      res.send(ApiResponse.ERROR("not found"));
       return;
     }
-    res.send({ status: "success", data: asset });
+    res.send(ApiResponse.OK(asset));
   } catch (err) {
     console.log(err);
-    res.send({ status: "error", error: "error getting asset" });
+    res.send(ApiResponse.ERROR("error getting asset"));
   }
 });
 
@@ -46,10 +46,10 @@ apiRouter.put("/assets", async (req, res) => {
   };
   try {
     const asset = await db.addAsset(item);
-    res.send({ status: "success", data: asset });
+    res.send(ApiResponse.OK(asset));
   } catch (err) {
     console.log(err);
-    res.send({ status: "error", error: "error inserting new asset" });
+    res.send(ApiResponse.ERROR("error inserting new asset"));
   }
 });
 
@@ -58,17 +58,16 @@ apiRouter.get("/scans", async (req, res) => {
   const { asset_ref } = req.query;
 
   if (!asset_ref) {
-    res.send({ status: "error", error: "missing query: asset_ref" });
+    res.send(ApiResponse.ERROR("missing query: asset_ref"));
     return;
   }
 
   try {
     const scans = await db.getScans(asset_ref);
-    console.log("found", scans.length);
-    res.send({ status: "success", data: scans });
+    res.send(ApiResponse.OK(scans));
   } catch (err) {
     console.log(err);
-    res.send({ status: "error", error: "error getting scans for asset" });
+    res.send(ApiResponse.ERROR("error getting scans for asset"));
   }
 });
 
@@ -96,9 +95,9 @@ apiRouter.put("/scans", async (req, res) => {
     console.log({ diffTime: scanDelay });
     await scheduler.addScan({ scan_ref: scan.id }, scanDelay);
 
-    res.send({ status: "success", data: scan });
+    res.send(ApiResponse.OK(scan));
   } catch (error) {
-    res.send({ status: "error", error: "error adding scan" });
+    res.send(ApiResponse.ERROR("error adding scan"));
     console.log(error);
   }
 });
@@ -114,9 +113,9 @@ apiRouter.put("/scans/updateStatus/:id", async (req, res) => {
   //add to db
   try {
     const scan = await db.updateScanStatus(id, status as SCAN_STATUS);
-    res.send({ status: "success", data: scan });
+    res.send(ApiResponse.OK(scan));
   } catch (error) {
-    res.send({ status: "error", error: "error updating scan status" });
+    res.send(ApiResponse.ERROR("error updating scan status"));
     console.log(error);
   }
 });

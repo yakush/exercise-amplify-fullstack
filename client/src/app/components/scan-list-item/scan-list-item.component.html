@@ -1,4 +1,9 @@
 <mat-card class="box">
+  <div fxLayout="row" >
+    <div>A</div>
+    <div>B</div>
+  </div>
+
   <div>
     <ng-container [ngSwitch]="scan.status">
       <ng-container *ngSwitchCase="'successed'"
@@ -14,7 +19,7 @@
   </div>
 
   <div>id : {{ scan._id }}</div>
-  <div>scan due date : {{ scan.scan_due_date }}</div>
+  <div>scan due date : <app-date [date]="scan.scan_due_date"></app-date></div>
   <div>status : {{ scan.status }}</div>
-  <div>created at : {{ scan.date_created }}</div>
+  <div>created at :<app-date [date]="scan.date_created"></app-date></div>
 </mat-card>

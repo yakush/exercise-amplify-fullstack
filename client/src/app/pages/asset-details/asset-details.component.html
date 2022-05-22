@@ -9,7 +9,7 @@
 <mat-divider></mat-divider>
 <h2>SCANS</h2>
 
-<div>
+<div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
   <button
     mat-stroked-button
     color="primary"
@@ -17,6 +17,14 @@
     (click)="handleAddScanClick()"
   >
     add scan
+  </button>
+
+  <button
+    mat-stroked-button
+    color="primary"
+    (click)="handleRefreshClick()"
+  >
+    refresh list
   </button>
 </div>
 <ng-container *ngIf="hasScans$ | async; else elseTemplate2">
