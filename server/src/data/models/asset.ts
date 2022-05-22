@@ -2,7 +2,7 @@ import mongoose, { Schema, Document, Types } from "mongoose";
 
 export const AssetModelName = "Asset";
 
-// model
+/**  Type */
 export interface IAsset {
   ip: String;
   name: String;
@@ -11,7 +11,7 @@ export interface IAsset {
 }
 export interface IAssetDocument extends IAsset, Document {}
 
-// Define Schema
+/**  Schema */
 export const AssetSchema = new Schema<IAssetDocument>({
   ip: { type: String, required: true },
   name: { type: String, required: true },
@@ -19,7 +19,7 @@ export const AssetSchema = new Schema<IAssetDocument>({
   date_created: { type: Date, required: true, default: Date.now },
 });
 
-// Create the mongoose model
+/**  mongoose Model */
 export const AssetModel = mongoose.model<IAssetDocument>(
   AssetModelName,
   AssetSchema

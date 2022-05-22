@@ -1,4 +1,4 @@
-import Bull, { Job } from "bull";
+import Bull from "bull";
 
 /**
  * create a bull queue connected to redis

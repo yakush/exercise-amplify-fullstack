@@ -24,6 +24,9 @@ function isValidId(id: any) {
   }
 }
 
+/**
+ * Manager for Database
+ */
 export class Database implements IAppService {
   start() {
     const URL = buildConnectionString(
@@ -87,6 +90,7 @@ export class Database implements IAppService {
   }
 }
 
+//-------------------------------------------------------
 //export instance
 const db = new Database();
 export default db;

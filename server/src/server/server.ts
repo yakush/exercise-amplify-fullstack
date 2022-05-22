@@ -7,6 +7,9 @@ import apiRouter from "./apiRouter";
 import schedulerAdminRouter from "./schedulerAdminRouter";
 import { IAppService } from "../types/appService";
 
+/**
+ * Manager for Server (web server)
+ */
 export class Server implements IAppService {
   public app: express.Express;
   public PORT = +(process.env.PORT || 5000);
@@ -27,7 +30,7 @@ export class Server implements IAppService {
     this.app.use("/api", apiRouter);
 
     this.app.get("/", async (req, res) => {
-      res.send("hello ");
+      res.send("hello");
     });
 
     return new Promise<void>((resolve, reject) => {
@@ -45,6 +48,7 @@ export class Server implements IAppService {
   }
 }
 
+//-------------------------------------------------------
 //export instance
 const server = new Server();
 export default server;
