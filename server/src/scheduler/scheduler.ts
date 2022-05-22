@@ -2,7 +2,7 @@ import Bull, { Job } from "bull";
 import { createBullBoard } from "bull-board";
 import { BullAdapter } from "bull-board/bullAdapter";
 import { IAppService } from "../types/appService";
-import scanQueue, { IScan } from "./queue/scanQueue";
+import scanQueue, { IScanJob } from "./queue/scanQueue";
 
 export class Scheduler implements IAppService {
   constructor() {}
@@ -11,7 +11,7 @@ export class Scheduler implements IAppService {
   async stop() {}
 
   //scan queue:
-  async addScan(data: IScan, delay: number) {
+  async addScan(data: IScanJob, delay: number) {
     return scanQueue.add(data, {
       delay,
       attempts: 5,

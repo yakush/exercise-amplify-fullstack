@@ -2,13 +2,13 @@ import Bull, { Job } from "bull";
 import db from "../../data/database";
 import { createQueue } from "../config";
 
-export interface IScan {
+export interface IScanJob {
   scan_ref: string;
 }
 
 // que
 export const SCAN_QUEUE_NAME = "scan";
-export const scanQueue = createQueue<IScan>(SCAN_QUEUE_NAME);
+export const scanQueue = createQueue<IScanJob>(SCAN_QUEUE_NAME);
 
 // process
 scanQueue.process(async (job, done) => {

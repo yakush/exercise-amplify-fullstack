@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { map, Observable, Subscription, switchMap } from 'rxjs';
+import { map, Observable, Subscription, switchMap, tap } from 'rxjs';
 import { ScanAssetComponent } from 'src/app/dialogs/scan-asset/scan-asset.component';
 import { AssetsApiService } from 'src/app/services/assets-api.service';
 import { IAsset } from 'src/data/models/asset';
@@ -18,6 +18,12 @@ export class AssetDetailsComponent implements OnInit, OnDestroy {
   public selectedId?: string;
   public currentAsset: IAsset | undefined;
 
+  public loadingAsset = true;
+  public loadingAssetError = false;
+
+  public loadingScans = true;
+  public loadingScansError = false;
+
   public asset$!: Observable<IAsset>;
   public scans$!: Observable<IScan[]>;
   public hasScans$!: Observable<boolean>;
@@ -29,7 +35,7 @@ export class AssetDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.getAssets();
+    this.getAsset();
     this.getScans();
 
     // get path params (/:id)
@@ -49,19 +55,31 @@ export class AssetDetailsComponent implements OnInit, OnDestroy {
     this.subs.forEach((s) => s.unsubscribe());
   }
 
-  getAssets() {
+  getAsset() {
+    this.loadingAsset = true;
+    this.loadingAssetError = false;
     this.asset$ = this.route.paramMap.pipe(
       switchMap((params) => {
         const id = params.get('id') || '';
         return this.api.getAssetById(id);
+      }),
+      tap((asset) => {
+        this.loadingAsset = false;
+        this.loadingAssetError = !asset;
       })
     );
   }
   getScans() {
+    this.loadingScans = true;
+    this.loadingScansError = false;
     this.scans$ = this.route.paramMap.pipe(
       switchMap((params) => {
         const id = params.get('id') || '';
         return this.api.getScansForAsset(id);
+      }),
+      tap((scans) => {
+        this.loadingScans = false;
+        this.loadingScansError = !scans;
       })
     );
     this.hasScans$ = this.scans$.pipe(map((x) => x && x.length > 0));

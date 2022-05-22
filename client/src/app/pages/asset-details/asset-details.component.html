@@ -1,13 +1,21 @@
 <h2>Assets Details</h2>
 
-<!-- <pre>{{ asset$ | async | json }}</pre> -->
-<ng-container *ngIf="currentAsset; else elseTemplate1">
-  <app-asset-card [asset]="currentAsset!"></app-asset-card>
+<!-- ASSET DETAILS -->
+
+<ng-container *ngIf="!loadingAsset; else elseTemplate_loadingAsset">
+  <ng-container *ngIf="!loadingAssetError; else elseTemplate_loadingAssetError">
+    <app-asset-card [asset]="currentAsset!"></app-asset-card>
+  </ng-container>
+  <ng-template #elseTemplate_loadingAssetError>
+    error loading asset
+  </ng-template>
 </ng-container>
-<ng-template #elseTemplate1> loading... </ng-template>
+<ng-template #elseTemplate_loadingAsset> loading... </ng-template>
+
+<!-- SCANS LIST -->
 
 <mat-divider></mat-divider>
-<h2>SCANS</h2>
+<h2>Scans</h2>
 
 <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
   <button
@@ -19,11 +27,7 @@
     add scan
   </button>
 
-  <button
-    mat-stroked-button
-    color="primary"
-    (click)="handleRefreshClick()"
-  >
+  <button mat-stroked-button color="primary" (click)="handleRefreshClick()">
     refresh list
   </button>
 </div>
@@ -33,9 +37,3 @@
   <app-scan-list [scans]="(scans$ | async) || []"></app-scan-list>
 </ng-container>
 <ng-template #elseTemplate2> no scans found </ng-template>
-
-<!-- <ul>
-  <li *ngFor="let scan of scans$ | async">
-    <pre>{{ scan | json }}</pre>
-  </li>
-</ul> -->

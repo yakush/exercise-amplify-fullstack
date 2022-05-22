@@ -9,7 +9,7 @@ export function createQueue<T = any>(queueName: string) {
   return new Bull<T>(queueName, {
     redis: {
       host: process.env.REDIS_HOST,
-      port: +(process.env.REDIS_PORT || 100),
+      port: +(process.env.REDIS_PORT || 6379),
     },
   });
 }

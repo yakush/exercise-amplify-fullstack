@@ -24,10 +24,7 @@ function isValidId(id: any) {
   }
 }
 
-export class Database implements IAppService{
-  //-------------------------------------------------------
-  // DB
-
+export class Database implements IAppService {
   start() {
     const URL = buildConnectionString(
       process.env.MONGO_HOST,

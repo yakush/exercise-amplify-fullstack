@@ -26,9 +26,6 @@ export class AssetsExplorerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getAssets();
-    // this.subs.push(
-    //   this.api.getAssets().subscribe((assets) => (this.assets = assets))
-    // );
   }
 
   ngOnDestroy(): void {
@@ -57,9 +54,7 @@ export class AssetsExplorerComponent implements OnInit, OnDestroy {
     this.router.navigate(['/assets-explorer', asset._id]);
   }
 
-  handleAdd(event: any) {
-    //open add asset dialog
-    //console.log('click');
+  handleAddClick(event: any) {
     this.openDialogNewAsset();
   }
 }
