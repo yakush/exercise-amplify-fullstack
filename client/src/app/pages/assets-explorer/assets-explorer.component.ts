@@ -14,7 +14,6 @@ import { IAsset } from 'src/data/models/asset';
 export class AssetsExplorerComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
-  //assets: IAsset[] = [];
   assets$!: Observable<IAsset[]>;
   hasAssets$!: Observable<boolean>;
 

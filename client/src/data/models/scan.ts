@@ -1,7 +1,7 @@
 export const ScanModelName = 'Scan';
 export type SCAN_STATUS = 'pending' | 'successed' | 'failed';
 
-// model
+/** scan model  */
 export interface IScan {
   _id?: String;
   asset_ref: String; //ref to the parent asset

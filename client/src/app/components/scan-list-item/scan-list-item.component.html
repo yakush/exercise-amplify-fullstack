@@ -1,25 +1,29 @@
 <mat-card class="box">
-  <div fxLayout="row" >
-    <div>A</div>
-    <div>B</div>
-  </div>
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
 
-  <div>
-    <ng-container [ngSwitch]="scan.status">
-      <ng-container *ngSwitchCase="'successed'"
-        ><mat-icon>done</mat-icon></ng-container
-      >
-      <ng-container *ngSwitchCase="'pending'"
-        ><mat-icon>watch_later</mat-icon></ng-container
-      >
-      <ng-container *ngSwitchCase="'failed'"
-        ><mat-icon>report_gmailerrorred</mat-icon></ng-container
-      >
-    </ng-container>
-  </div>
+    <div>
+      <ng-container [ngSwitch]="scan.status">
+        <ng-container *ngSwitchCase="'successed'"
+          ><mat-icon>done</mat-icon></ng-container
+        >
+        <ng-container *ngSwitchCase="'pending'"
+          ><mat-icon>watch_later</mat-icon></ng-container
+        >
+        <ng-container *ngSwitchCase="'failed'"
+          ><mat-icon>report_gmailerrorred</mat-icon></ng-container
+        >
+      </ng-container>
+    </div>
 
-  <div>id : {{ scan._id }}</div>
-  <div>scan due date : <app-date [date]="scan.scan_due_date"></app-date></div>
-  <div>status : {{ scan.status }}</div>
-  <div>created at :<app-date [date]="scan.date_created"></app-date></div>
+    <mat-divider [vertical]="true" fxFlexAlign="stretch"></mat-divider>
+
+    <div fxFlex>
+      <div>id : {{ scan._id }}</div>
+      <div>
+        scan due date : <app-date [date]="scan.scan_due_date"></app-date>
+      </div>
+      <div>status : {{ scan.status }}</div>
+      <div>created at :<app-date [date]="scan.date_created"></app-date></div>
+    </div>
+  </div>
 </mat-card>

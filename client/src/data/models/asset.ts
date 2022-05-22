@@ -1,6 +1,6 @@
 export const AssetModelName = 'Asset';
 
-// model
+/** asset model */
 export interface IAsset {
   _id?: String;
   ip: String;

@@ -12,7 +12,6 @@ import { AssetsListComponent } from './components/assets-list/assets-list.compon
 import { AssetsListItemComponent } from './components/assets-list-item/assets-list-item.component';
 import { ScanListItemComponent } from './components/scan-list-item/scan-list-item.component';
 import { ScanListComponent } from './components/scan-list/scan-list.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AssetsExplorerComponent } from './pages/assets-explorer/assets-explorer.component';
 import { AssetDetailsComponent } from './pages/asset-details/asset-details.component';
@@ -32,7 +31,6 @@ import { FlexLayoutModule } from "@angular/flex-layout";
     AssetsListItemComponent,
     ScanListItemComponent,
     ScanListComponent,
-    ToolbarComponent,
     DashboardComponent,
     AssetsExplorerComponent,
     AssetDetailsComponent,

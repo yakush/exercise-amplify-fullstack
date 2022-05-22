@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IAsset } from 'src/data/models/asset';
 import { IScan } from 'src/data/models/scan';
 
 @Component({
