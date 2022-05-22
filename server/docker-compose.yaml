@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  # MONGO DATABASE
+  mongodb:
+    image: mongo
+    container_name: amplify-ex-mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass12345
+    ports:
+      - 27017:27017
+    # TODO: crashes with volumes... why?
+    volumes:
+      - ./data/mongo:/data/db
+    restart: unless-stopped
+
+  # REDIS DATABASE
+  redis:
+    image: redis
+    container_name: amplify-ex-redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data
+
+  # REDIS VIEWER (on localhost:8081)
+  redis-commander:
+    container_name: amplify-ex-redis-commander
+    image: rediscommander/redis-commander
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"

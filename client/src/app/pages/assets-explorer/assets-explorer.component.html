@@ -1,0 +1,15 @@
+<h2>Assets Explorer</h2>
+
+<button mat-stroked-button color="primary" (click)="handleAdd($event)">
+  add asset
+</button>
+
+<div>{{ (assets$ | async)?.length }} items</div>
+
+<ng-container *ngIf="hasAssets$ | async; else elseTemplate">
+  <app-assets-list
+    [assets]="(assets$ | async) || []"
+    (itemClick)="handleItemClick($event)"
+  ></app-assets-list>
+</ng-container>
+<ng-template #elseTemplate> no assets found </ng-template>

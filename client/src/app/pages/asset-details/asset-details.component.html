@@ -1,0 +1,33 @@
+<h2>Assets Details</h2>
+
+<!-- <pre>{{ asset$ | async | json }}</pre> -->
+<ng-container *ngIf="currentAsset; else elseTemplate1">
+  <app-asset-card [asset]="currentAsset!"></app-asset-card>
+</ng-container>
+<ng-template #elseTemplate1> loading... </ng-template>
+
+<mat-divider></mat-divider>
+<h2>SCANS</h2>
+
+<div>
+  <button
+    mat-stroked-button
+    color="primary"
+    [disabled]="!currentAsset"
+    (click)="handleAddScanClick()"
+  >
+    add scan
+  </button>
+</div>
+<ng-container *ngIf="hasScans$ | async; else elseTemplate2">
+  <!-- <div>{{ (scans$ | async)?.length }} scans</div> -->
+
+  <app-scan-list [scans]="(scans$ | async) || []"></app-scan-list>
+</ng-container>
+<ng-template #elseTemplate2> no scans found </ng-template>
+
+<!-- <ul>
+  <li *ngFor="let scan of scans$ | async">
+    <pre>{{ scan | json }}</pre>
+  </li>
+</ul> -->

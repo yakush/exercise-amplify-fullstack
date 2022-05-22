@@ -1,0 +1,20 @@
+<mat-card class="box">
+  <div>
+    <ng-container [ngSwitch]="scan.status">
+      <ng-container *ngSwitchCase="'successed'"
+        ><mat-icon>done</mat-icon></ng-container
+      >
+      <ng-container *ngSwitchCase="'pending'"
+        ><mat-icon>watch_later</mat-icon></ng-container
+      >
+      <ng-container *ngSwitchCase="'failed'"
+        ><mat-icon>report_gmailerrorred</mat-icon></ng-container
+      >
+    </ng-container>
+  </div>
+
+  <div>id : {{ scan._id }}</div>
+  <div>scan due date : {{ scan.scan_due_date }}</div>
+  <div>status : {{ scan.status }}</div>
+  <div>created at : {{ scan.date_created }}</div>
+</mat-card>

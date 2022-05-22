@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let asset of assets">
+    <app-assets-list-item
+      [asset]="asset"
+      (itemClick)="handleItemClick(asset)"
+    ></app-assets-list-item>
+  </li>
+</ul>

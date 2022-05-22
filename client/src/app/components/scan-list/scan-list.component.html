@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let scan of scans">
+    <app-scan-list-item
+      [scan]="scan"
+      (click)="handleItemClick(scan)"
+    ></app-scan-list-item>
+  </li>
+</ul>
