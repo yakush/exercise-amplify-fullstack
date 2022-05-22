@@ -56,33 +56,41 @@ export class AssetDetailsComponent implements OnInit, OnDestroy {
   }
 
   getAsset() {
-    this.loadingAsset = true;
-    this.loadingAssetError = false;
     this.asset$ = this.route.paramMap.pipe(
       switchMap((params) => {
         const id = params.get('id') || '';
         return this.api.getAssetById(id);
-      }),
-      tap((asset) => {
-        this.loadingAsset = false;
-        this.loadingAssetError = !asset;
       })
     );
+
+    //loading states
+    this.loadingAsset = true;
+    this.loadingAssetError = false;
+
+    const subLoading = this.asset$.subscribe((asset) => {
+      subLoading.unsubscribe();
+      this.loadingAsset = false;
+      this.loadingAssetError = !asset;
+    });
   }
   getScans() {
-    this.loadingScans = true;
-    this.loadingScansError = false;
     this.scans$ = this.route.paramMap.pipe(
       switchMap((params) => {
         const id = params.get('id') || '';
         return this.api.getScansForAsset(id);
-      }),
-      tap((scans) => {
-        this.loadingScans = false;
-        this.loadingScansError = !scans;
       })
     );
     this.hasScans$ = this.scans$.pipe(map((x) => x && x.length > 0));
+
+    //loading states
+    this.loadingScans = true;
+    this.loadingScansError = false;
+
+    const subLoading = this.asset$.subscribe((scans) => {
+      subLoading.unsubscribe();
+      this.loadingScans = false;
+      this.loadingScansError = !scans;
+    });
   }
 
   openDialogScanAsset() {

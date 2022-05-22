@@ -12,10 +12,11 @@ import { IAsset } from 'src/data/models/asset';
   styleUrls: ['./assets-explorer.component.css'],
 })
 export class AssetsExplorerComponent implements OnInit, OnDestroy {
-  subs: Subscription[] = [];
-
   assets$!: Observable<IAsset[]>;
   hasAssets$!: Observable<boolean>;
+
+  public loadingAssets = true;
+  public loadingAssetsError = false;
 
   constructor(
     private router: Router,
@@ -27,13 +28,20 @@ export class AssetsExplorerComponent implements OnInit, OnDestroy {
     this.getAssets();
   }
 
-  ngOnDestroy(): void {
-    this.subs.forEach((s) => s.unsubscribe());
-  }
+  ngOnDestroy(): void {}
 
   getAssets() {
+    this.loadingAssets = true;
+    this.loadingAssetsError = false;
+
     this.assets$ = this.api.getAssets();
     this.hasAssets$ = this.assets$.pipe(map((x) => x && x.length > 0));
+
+    const subLoading = this.assets$.subscribe((res) => {
+      subLoading.unsubscribe();
+      this.loadingAssets = false;
+      this.loadingAssetsError = !res;
+    });
   }
 
   openDialogNewAsset() {

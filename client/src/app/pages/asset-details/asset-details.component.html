@@ -4,7 +4,7 @@
 
 <ng-container *ngIf="!loadingAsset; else elseTemplate_loadingAsset">
   <ng-container *ngIf="!loadingAssetError; else elseTemplate_loadingAssetError">
-    <app-asset-card [asset]="currentAsset!"></app-asset-card>
+    <app-asset-card [asset]="(asset$ | async)!"></app-asset-card>
   </ng-container>
   <ng-template #elseTemplate_loadingAssetError>
     error loading asset

@@ -1,17 +1,55 @@
 <h2>Assets Explorer</h2>
 
-<button mat-stroked-button color="primary" (click)="handleAddClick($event)">
-  add asset
-</button>
+<ng-container *ngIf="!loadingAssets; else elseTemplate_loadingAssets">
+  <!-- loaded -->
+  <ng-container
+    *ngIf="!loadingAssetsError; else elseTemplate_loadingAssetsError"
+  >
+    <!-- no error -->
+    <ng-container *ngIf="hasAssets$ | async; else elseTemplate_hasAssets">
+      <!-- not empty list -->
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="handleAddClick($event)"
+      >
+        create asset
+      </button>
 
-<div>{{ (assets$ | async)?.length }} items</div>
+      <div>{{ (assets$ | async)?.length }} items</div>
 
-<!-- ASSETS LIST -->
+      <!-- ASSETS LIST -->
+      <app-assets-list
+        [assets]="(assets$ | async) || []"
+        (itemClick)="handleItemClick($event)"
+      ></app-assets-list>
+    </ng-container>
+    <ng-template #elseTemplate_hasAssets>
+      <!-- else : empty list -->
+      <mat-card>
+        <mat-card-content fxLayout="row" fxLayoutAlign="center center">
+          <h1>Welcome, lets start by creating new assets</h1>
+        </mat-card-content>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="handleAddClick($event)"
+          >
+            create asset
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-template>
+  </ng-container>
 
-<ng-container *ngIf="hasAssets$ | async; else elseTemplate">
-  <app-assets-list
-    [assets]="(assets$ | async) || []"
-    (itemClick)="handleItemClick($event)"
-  ></app-assets-list>
+  <ng-template #elseTemplate_loadingAssetsError>
+    <!-- else : has error -->
+    error loading assets
+  </ng-template>
 </ng-container>
-<ng-template #elseTemplate> no assets found </ng-template>
+
+<ng-template #elseTemplate_loadingAssets>
+  <!-- else : loading -->
+  loading...
+</ng-template>

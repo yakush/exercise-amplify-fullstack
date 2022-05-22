@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'assets-explorer', component: AssetsExplorerComponent },
   { path: 'assets-explorer/:id', component: AssetDetailsComponent },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/assets-explorer', pathMatch: 'full' },
   //{ path: '**',    component: NoContentComponent },
   //{ path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
 ];
