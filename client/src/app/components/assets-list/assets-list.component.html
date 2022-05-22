@@ -1,5 +1,5 @@
 <ul>
-  <li *ngFor="let asset of assets">
+  <li *ngFor="let asset of assets" class="item">
     <app-assets-list-item
       [asset]="asset"
       (itemClick)="handleItemClick(asset)"
